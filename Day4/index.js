@@ -1,6 +1,6 @@
 var http = require('http');
 const paserurl = require('url');
-
+var fs=require('fs');
 
 //create a server object:
 http.createServer(function (req, res) {
@@ -24,33 +24,12 @@ http.createServer(function (req, res) {
         title = queryObject.title
       if(queryObject.test)
       test=queryObject.test
-      
-      
+url='/study.html';
       console.log('queryObject : ', queryObject);
-      res.write(`
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <meta charset="utf-8">
-        <title>My test page</title>
-      </head>
-      <body>
-        <h1>Welcom..  ${name} </h1>
-        <h1>title :   ${title} </h1>
-        <h1>test : ${test}</h1>
-        <img src="https://picsum.photos/400" alt="The Firefox logo: a flaming fox surrounding the Earth.">
-        <p>https://picsum.photos/400</p>
-    
-        <ul> <!-- changed to list in the tutorial -->
-          <li>technologists</li>
-          <li>nature</li>
-          <li>people</li>
-        </ul>    
-        <p>let's sturdy togather...</p>
-    
-      </body>
-    </html>
-    `)
+var write = fs.readFileSync(url);
+res.write(write);
+
+      
     }
     else {
       console.log('method : ', method);
