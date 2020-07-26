@@ -18,16 +18,19 @@ http.createServer(function (req, res) {
       var name = 'guest'
       var title = 'No Title'
       var test='testt'
+
       if(queryObject.name)
         name = queryObject.name
       if(queryObject.title)
         title = queryObject.title
       if(queryObject.test)
       test=queryObject.test
-url='/study.html';
+
+      url='/study.html';
       console.log('queryObject : ', queryObject);
-var write = fs.readFileSync(url);
-res.write(write);
+      res.end(fs.readFileSync(__dirname + url));
+// var write = fs.readFileSync(url);
+// res.write(write);
 
       
     }
