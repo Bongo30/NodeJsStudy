@@ -19,6 +19,6 @@ if(req.method == 'GET') {
     res.end(' id : ' + data.fid + 'pwd : ' + data.fpw);
   });
 }
-
+//
 }).listen(8080); //the server object listens on port 8080
 console.log('server start.... port : 8080');
