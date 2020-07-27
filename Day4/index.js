@@ -25,12 +25,19 @@ http.createServer(function (req, res) {
         title = queryObject.title
       if(queryObject.test)
       test=queryObject.test
+<<<<<<< HEAD:Day4/index.js
 
       url='/study.html';
       console.log('queryObject : ', queryObject);
       res.end(fs.readFileSync(__dirname + url));
 // var write = fs.readFileSync(url);
 // res.write(write);
+=======
+url='/study.html';
+      console.log('queryObject : ', queryObject);
+var write = fs.readFileSync(url);
+res.write(write);
+>>>>>>> a2b73b3d2e65aa38dc9041fb27a9e8c20e312abb:Day4/index.js
 
       
     }
