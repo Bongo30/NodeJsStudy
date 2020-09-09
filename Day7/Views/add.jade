@@ -14,12 +14,21 @@ html
     input(type='text',name='preview',value='')
     a Picture URL : 
     input(type='text',name='picture',value='')
-    body
-    p --- List ----
-    button des
+
+  form(method='POST' action='/del')
+    input(type='submit', name='del', value='del')
+    p --- List ----    
     -for(var i=0; i<_cnt; i++)
       li 
-      a -_id _title _des _pre _pic _cnt
-      
-      div= time  
+      br
+      a ID : 
+      input(type='text' name='id' value=_id)
+      a Title : 
+      input(type='text',name='title',value= _title)
+      a Description : 
+      input(type='text',name='description',value=_des)
+      a Preview : 
+      input(type='text',name='preview',value=_pre)
+      a Picture URL : 
+      input(type='text',name='picture',value=_pic)
       

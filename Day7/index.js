@@ -6,7 +6,7 @@ app.use(bodyParser.urlencoded({ extended:  false  }));
 app.use(bodyParser.json());  
   
 
-var listCnt =1;
+var listCnt =0;
 // app.post('/',function (req,res) {  
 //     console.log(req.body)
 //     res.end(' ' + req.body.id);  
@@ -26,29 +26,39 @@ const viewList = function(req, res){
 }
 
 const addView = function(req, res){
-  var id =req.body.id
+  
+  var id =req.body.id;
   var title =req.body.title;
   var des =req.body.description;
   var pre =req.body.preview;
   var pic =req.body.picture;
 
-  res.render('add',{_title: title,_des:des,_pre:pre,_pic:pic ,_id:id,_cnt:listCnt});
-  listCnt++;
-
-  console.log(listCnt);
+  listCnt = listCnt + 1;
+  res.render('add',{_title: title
+                    ,_des :des
+                    ,_pre :pre
+                    ,_pic :pic 
+                    ,_id  :id                 
+                    ,_cnt :listCnt});
+  
   
 }
 
-const desView = function(req, res){
-  var id =req.body.id
+const delView = function(req, res){
+  var id =req.body.id;
   var title =req.body.title;
   var des =req.body.description;
   var pre =req.body.preview;
   var pic =req.body.picture;
 
-  listCnt--;
-  console.log(listCnt);
-  res.render('des',{_title: title,_des:des,_pre:pre,_pic:pic ,_id:id,_cnt:listCnt});
+  listCnt = listCnt -1;
+  
+  res.render('del',{_title: title
+    ,_des :des
+    ,_pre :pre
+    ,_pic :pic 
+    ,_id  :id                 
+    ,_cnt :listCnt});
   
   
 }
@@ -58,7 +68,8 @@ app.get('/',viewList);
 //app.get('/',add);
 
 app.post('/add', addView);
-app.post('/des', desView);
+//app.post('/des', desView);
+app.post('/del', delView);
 
 
 app.listen(3000, function () {
