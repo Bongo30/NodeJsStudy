@@ -1,0 +1,76 @@
+script(src='https://code.jquery.com/jquery-3.4.1.js', integrity='sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=', crossorigin='anonymous')
+html
+head
+title Ajax Study ^_^
+
+    //- form(method='POST' action='/add')  
+
+head Information
+    div
+        button(onclick='clickEvnet()') Toggle
+    div
+        button(id="ajaxbnt" onclick='dataFromServer()') Add 
+    
+    form(id="form")
+        br
+        a Name :
+        input(id="name", type='text',name='name' value='')
+        a Age : 
+        input(id="age", type='text',name='age',value= '')
+        a Gender : 
+        input(type='text',name='gender',value='')
+        a Address : 
+        input(type='text',name='address',value='')
+
+div
+    table(id="table")
+        thead
+            tr
+                th Name     
+                th Age      
+                th Gender       
+                th address      
+                
+        tbody
+            //-each srec in places
+            tr
+                td(id="tbName" value='a') 
+                td b
+                td c
+                td d
+        //-   td span='(a(href='./sysstatus/' + #{srec.item_id}))'
+        //-   td span='(moment(#{srec.status_date}).format("YYYY-MM-DD HH:mm:ss"))'
+        //-   td #{srec.item}
+        //-   td #{srec.item_desc}
+        //-   td #{srec.status_value}
+        div(id="showData")
+
+
+script.
+    var toggle = true;
+    const clickEvnet = function() {
+        toggle ? $("#ajaxbnt").hide() : $("#ajaxbnt").show();
+        toggle = !toggle;
+
+    console.log('clickEvnet')
+    //alert('clickEvnet')
+    }
+
+    const dataFromServer = function(){
+    $.ajax({
+            url: '/list',
+            type :'POST',
+            dataType : 'json',
+            data : $('#form').serialize(),
+            success: function(data){
+       
+                console.log('log : ', data)
+                const htmlwithData = `<div>${data.listData} </div>`
+
+                $("#tbName").html(htmlwithData) ;
+                //- const htmlwithData = `<div>${data.listData} </div>`
+
+                //- $("#showData").html(htmlwithData) ;
+            }
+        });
+    }
