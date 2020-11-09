@@ -9,36 +9,66 @@ app.use(bodyParser.json());
 app.use(cookieParser()); 
 
 
-var userInfo = {
+//JSON------------
+//JSON 파일 로드
+function LoadJson(filename=''){
+    if(fs.existsSync(filename)){
+        return JSON.parse(fs.readFileSync(filename).toString())
+    }
+    return '""';
 
 }
 
+var jsonData = LoadJson('userInfo.json');
 
+class Users{
+    constructor(name, password, youtubeAddr){
+        this.name = name;
+        this.password = password;
+        this.youtubeAddr = youtubeAddr;
+    }
+}
+//----------------
+//JSON 객체 배열 생성 
+var users = jsonData.user;
+const userInfo = users;
+// const initUser= new Users(name='guest',password='1111',youtubeAddr='https://www.youtube.com/embed/v64KOxKVLVg');
+// userInfo.push(initUser);
+
+console.log(userInfo);
 
 app.get('/',function (req,res) {  
     
     // index 페이지 로드
-    var name = 'guest';    
-    var youtubeAddr = 'https://www.youtube.com/embed/v64KOxKVLVg';
-    
+    var name = userInfo[0].name;
+    var youtubeAddr ='';
+    var idx =0;
     console.log(req.cookies.uname);      
     console.log(req.cookies.upassword); 
 
     if(req.cookies.uname){
+        var checkUser = false;
+        userInfo.forEach(user => {
+            if(req.cookies.uname == user.name && req.cookies.upassword == user.password){
+                checkUser =true;
+                idx = userInfo.indexOf(user);
+            }
+        });
 
-        //쿠키의 id와 비밀번호가 일치 여부 확인
-        if(req.cookies.uname == 'aaaa' && req.cookies.upassword =='1111')
-        {
-            name = req.cookies.uname            
-            if(userInfo[name]){
-                youtubeAddr = 'https://www.youtube.com/embed/'+userInfo[name];           
-                
-            }        
+        if(!checkUser){
+            name = userInfo[0].name;     
+            //outubeAddr = initUser.youtubeAddr;
         }
-        else{
+        else{ 
+            //해당 쿠키의 인덱스를 찾아 해당 유투브 주소 오픈         
+            name = req.cookies.uname;  
+            youtubeAddr = userInfo[idx].youtubeAddr;
+        }
 
-        } 
+
+    
     }
+
     console.log(youtubeAddr);
     fs.readFile(__dirname + '/view/index.html', 'UTF-8',
         (err, data) => {
@@ -52,24 +82,35 @@ app.get('/',function (req,res) {
 
 app.get('/userinfo',function (req,res) {  
 
-    if(req.query.youtube_addr ==''){
-        req.query.youtube_addr = 'https://www.youtube.com/embed/v64KOxKVLVg';
-    }
+    // 기존에 존재 하는 유저인지 확인
+    // var checkUser = false;
+    // userInfo.forEach(user => {
+    //     if(req.query.uname == user.name){
+    //         checkUser =true;
+            
+    //     }
+    // });   
     
-    console.log(req.query.youtube_addr)
-    const urlsplited = req.query.youtube_addr.split('/');
-    userInfo[req.query.uname] = urlsplited[urlsplited.length-1];
+        if(req.query.youtube_addr ==''){
+            req.query.youtube_addr = userInfo[0].youtubeAddr;
+        }
+        userInfo.push(new Users(req.query.uname,req.query.upassword,req.query.youtube_addr));
+
+        console.log(req.query.youtube_addr)
+        const urlsplited = req.query.youtube_addr.split('/');
+        userInfo[req.query.uname] = urlsplited[urlsplited.length-1];
+        
+        
+        //if(req.query.uname =='guest' && req.query.upassword =='1111'){
+            res.cookie('uname', req.query.uname,{
+                maxAge:1000000
+            });
+        
+            res.cookie('upassword', req.query.upassword,{
+                maxAge:1000000
+            });
     
-    console.log(userInfo);
-    //if(req.query.uname =='guest' && req.query.upassword =='1111'){
-        res.cookie('uname', req.query.uname,{
-            maxAge:1000000
-        });
-    
-        res.cookie('upassword', req.query.upassword,{
-            maxAge:1000000
-        });
-   // }
+
 
     res.redirect('/');  
 });
