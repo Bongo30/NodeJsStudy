@@ -10,13 +10,15 @@ app.use(bodyParser.json());
 app.use(cookieParser()); 
 
 
-//공개키 방식 암호화  공인인증서 
+//공개키 방식 암호화  공인인증서  ㅋ_ㅋ 
+// 1. 공개키, 비밀키 생성 
+// 2. 해당키 추출 후 각 서버/유저가 보관 
 // const key = new NodeRsa({b:1024});
 //  let secret = "aaaa";
  
 // console.log(secret);
 
-//  var encryptedString = key.encrypt(secret,'base64'); // 공개키
+//  var encryptedString = key.encrypt(secret,'base64');
 //  console.log("<public key >");
 //  console.log(encryptedString);
 
