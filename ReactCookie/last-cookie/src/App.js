@@ -35,6 +35,6 @@ function App() {
         </AuthApi.Provider>
     </div>
   );
-
+}
 
 export default App;
