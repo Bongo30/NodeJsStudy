@@ -10,11 +10,6 @@ import {
 } from "react-router-dom";
 import Cookies from 'js-cookie';
 export default class Routes extends React.Component{
-    constructor(props) {
-        
-        super(props);
-            
-    }
     
     render(){
         const Login = () => {

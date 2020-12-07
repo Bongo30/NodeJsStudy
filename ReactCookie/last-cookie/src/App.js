@@ -11,8 +11,9 @@ import {
   Redirect,
   Link
 } from "react-router-dom";
+
 function App() {
-  const [auth,setAuth]=React.useState(false);
+  const [auth,setAuth]= React.useState(false);
 
   const readCookie = () =>{
     const user = Cookies.get("user")
@@ -29,7 +30,7 @@ function App() {
         {/* <Login/>
         <Dashboard/> */}
         <AuthApi.Provider value={{auth,setAuth}}>
-        <Router auth={{auth,setAuth}}>
+        <Router >
             <Routes/>
         </Router>
         </AuthApi.Provider>
