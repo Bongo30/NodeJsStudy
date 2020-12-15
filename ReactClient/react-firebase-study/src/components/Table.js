@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{useState,userEffect}from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -14,16 +14,24 @@ const useStyles = makeStyles({
   },
 });
 
-function createData(ID, Name, Phone, email) {
-  return { ID, Name, Phone, email };
-}
 
-const users = [];
+
 
 export default function BasicTable(props) {
   const classes = useStyles();
-  users.push(props.user)
-  console.log(users)
+  const [Users] = useState([]);
+  var key = 0 ;
+  var test =[];
+  
+  Users.push(props.user);
+  // Users.pop();
+  console.log(props.user);
+  console.log('user length : '+Users.length);
+
+  // userEffect(()=>{
+  //   Users.pop()
+  // },[])
+  
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
@@ -37,10 +45,12 @@ export default function BasicTable(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {users.map((row) => (
-            <TableRow key={row.ID}>
+          {Users.map((row) => (
+            <TableRow key={key=key+1}>
               <TableCell component="th" scope="row">
                 {row.ID}
+                {test.push(row.Name)}
+                {console.log(test)}
               </TableCell>
               <TableCell align="right">{row.Name}</TableCell>
               <TableCell align="right">{row.Phone}</TableCell>

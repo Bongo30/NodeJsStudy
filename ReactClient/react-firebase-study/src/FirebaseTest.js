@@ -1,27 +1,33 @@
 import React from 'react';
 import fire from './config/fire-config';
-import { makeStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Table from './components/Table'
+import {
+    // BrowserRouter as Router,
+    // Switch,
+    // Route,
+    // Redirect,
+    // Link
+  } from "react-router-dom";
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-      '& > *': {
-        margin: theme.spacing(1),
-        },
-    },
-}));
 
-var table='';
+
 
 class FirBtn extends React.Component{
     constructor(props){
         super(props);
         this.state ={
+            user : [],
             IsTable : false,
+            table : <div></div>
         };
         this.handleClick = this.handleClick.bind(this);
+        // const table ='';
+        // const user ='';
+      //  const user ='';
     }
+    
     handleClick(){
         this.setState({IsTable:true});
         fire.firestore()
@@ -36,21 +42,29 @@ class FirBtn extends React.Component{
                 }
                 )
             )
-        // console.log(cons[0]);
+         console.log('state : '+this.state.IsTable);
         if(cons) {
-            var user = cons[0];
-            // console.log(user);
-            table =<Table user ={user}/>
+          //  console.log(cons[0]);
+            
+            //this.setState({user : this.state.user.push(cons[0])});            
+            this.setState({table :<Table user ={cons[0]} />    
+            });  
+     
         }        
         })
     }
     render(){  
-        
+            
         return(
             <div>
                 <Button variant="contained" onClick={this.handleClick}>Default</Button>
                 <br/>
-                {table}
+                {this.state.table} 
+                {/* <Router>
+                    <Switch>
+                        <Table path="/components/Table" Component="Table"/>                
+                    </Switch>
+                </Router> */}
             </div>
         );
     }
