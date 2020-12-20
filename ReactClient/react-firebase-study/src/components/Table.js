@@ -19,19 +19,14 @@ const useStyles = makeStyles({
 
 export default function BasicTable(props) {
   const classes = useStyles();
-  const [Users] = useState([]);
+  const [Users] = useState(props.user);
   var key = 0 ;
   var test =[];
+ 
   
-  Users.push(props.user);
-  // Users.pop();
-  console.log(props.user);
-  console.log('user length : '+Users.length);
 
-  // userEffect(()=>{
-  //   Users.pop()
-  // },[])
-  
+//  console.log('v::');
+  //console.log(tes);
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
@@ -45,12 +40,11 @@ export default function BasicTable(props) {
           </TableRow>
         </TableHead>
         <TableBody>
+          
           {Users.map((row) => (
             <TableRow key={key=key+1}>
               <TableCell component="th" scope="row">
-                {row.ID}
-                {test.push(row.Name)}
-                {console.log(test)}
+                {row.ID}     
               </TableCell>
               <TableCell align="right">{row.Name}</TableCell>
               <TableCell align="right">{row.Phone}</TableCell>
