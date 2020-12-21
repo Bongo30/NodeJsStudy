@@ -21,14 +21,33 @@ class FirBtn extends React.Component{
         this.state ={
             user : [],
             // IsTable : false,
-            table : <div></div>
+            table : <div></div>,
+            Id : '0',
+            name :'sbg',
+            phone : '1234',
+            email :'sbg@mail'
         };
         this.handleClick = this.handleClick.bind(this);
+        this.InsHandleClick = this.InsHandleClick.bind(this);
         // const table ='';
         // const user ='';
       //  const user ='';
     }
-    
+    InsHandleClick(){
+        
+        this.setState({...this.state,
+        //ㄱㅣ존배열에서 추가하렴 어떻게 해야하죠 ? ..
+        user: {id : 'xxx',
+                Name : this.state.name,
+                phone : this.state.phone,
+                ID : this.state.id,                    
+                email : this.state.email
+        }
+        }) 
+        console.log('User : ')
+        console.log(this.state.user)
+
+    }
     handleClick(){
         //this.setState({IsTable:true});
         
@@ -46,8 +65,8 @@ class FirBtn extends React.Component{
             )
         
         if(cons) {
-            //this.setState({user : this.state.user.push(cons[0])});            
-            this.setState({...this.state,table :<Table user ={cons} /> 
+            this.setState({...this.state,user : cons});           
+            this.setState({...this.state,table :<Table user ={this.state.user} /> 
                 
             });  
             
@@ -61,7 +80,9 @@ class FirBtn extends React.Component{
             <div>
                 <Button variant="contained" onClick={this.handleClick}>Show Table</Button>
                 <br/>
-                <InputFeild/>
+                <InputFeild value ={this.state}
+                            onClick={()=>this.InsHandleClick()}
+                />
                 {this.state.table} 
                 {/* <Router>
                     <Switch>

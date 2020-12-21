@@ -1,4 +1,4 @@
-import React ,{useState,userEffect}from 'react';
+import React ,{useState,userEffect, useEffect}from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -19,9 +19,14 @@ const useStyles = makeStyles({
 
 export default function BasicTable(props) {
   const classes = useStyles();
-  const [Users] = useState(props.user);
-  var key = 0 ;
-  var test =[];
+  const [Users,setUsers] = useState(props.user)
+  let key = 0 ;
+  
+  
+
+  // useEffect(()=>{
+  //   Users.push(props.user[key]);
+  // })
  
   
 
