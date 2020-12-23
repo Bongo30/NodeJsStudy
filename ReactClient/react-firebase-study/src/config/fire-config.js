@@ -3,7 +3,6 @@ import firebase from 'firebase';
 
 const firebaseConfig = {
 
-};
 
 try{
     firebase.initializeApp(firebaseConfig);

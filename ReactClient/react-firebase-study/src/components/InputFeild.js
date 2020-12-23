@@ -6,7 +6,7 @@ function InputFeild(props){
         <div>
             
             <label>Name : </label>
-            <input tpye="text" value={props.value.name}></input>
+            <input tpye="text" value={props.value.name} onChange={props.onChange}></input>
             <label>Phone : </label>
             <input tpye="text" value ={props.value.phone}></input>
             <label>Email : </label>
