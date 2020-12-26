@@ -21,8 +21,8 @@ export default function BasicTable(props) {
   const classes = useStyles();
   const [Users,setUsers] = useState(props.user)
   let key = 0 ;
-  
-  
+    console.log('Table:')
+   console.log(Users);
 
   // useEffect(()=>{
   //   Users.push(props.user[key]);
